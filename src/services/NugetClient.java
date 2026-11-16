@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class NugetClient {
+    private final int HTTP_OK_CODE = 200;
     private final HttpClient client = HttpClient.newHttpClient();
 
     /**
@@ -42,7 +43,7 @@ public class NugetClient {
                     HttpResponse.BodyHandlers.ofString()
             );
 
-            if (response.statusCode() != 200) {
+            if (response.statusCode() != HTTP_OK_CODE) {
                 throw new IOException("Не удалось получить пакет. HTTP-код: " + response.statusCode());
             }
 

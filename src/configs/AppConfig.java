@@ -59,7 +59,6 @@ public class AppConfig {
 
         Boolean testMod = null;
         Integer maxDepth = null;
-
         try {
             if (rawTestMode.isBlank()) {
                 throw new RuntimeException();
@@ -68,7 +67,6 @@ public class AppConfig {
         } catch (Exception e) {
             System.out.println("Ошибка преобразования значения test_mod в булевое значение");
         }
-
         try {
             maxDepth = Integer.parseInt(rawMaxDepth);
         } catch (Exception e) {
