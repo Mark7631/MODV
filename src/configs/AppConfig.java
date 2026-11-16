@@ -57,15 +57,30 @@ public class AppConfig {
         String outputFile = clean(prop.getProperty("output_file"));
         String rawMaxDepth = clean(prop.getProperty("max_depth"));
 
-        Boolean testMod  = Boolean.parseBoolean(rawTestMode);
-        Integer maxDepth = Integer.parseInt(rawMaxDepth);
+        Boolean testMod = null;
+        Integer maxDepth = null;
+
+        try {
+            if (rawTestMode.isBlank()) {
+                throw new RuntimeException();
+            }
+            testMod = Boolean.parseBoolean(rawTestMode);
+        } catch (Exception e) {
+            System.out.println("Ошибка преобразования значения test_mod в булевое значение");
+        }
+
+        try {
+            maxDepth = Integer.parseInt(rawMaxDepth);
+        } catch (Exception e) {
+            System.out.println("Ошибка преобразования значения max_depth в числовое значение");
+        }
 
         data = new AppInputData(packageName,
-                                repoUrl,
-                                testMod,
-                                packageVersion,
-                                outputFile,
-                                maxDepth);
+                repoUrl,
+                testMod,
+                packageVersion,
+                outputFile,
+                maxDepth);
         readData = true;
         correctData = ConfigValidator.validate(data);
     }
